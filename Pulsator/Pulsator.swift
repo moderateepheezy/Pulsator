@@ -42,7 +42,7 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     // MARK: - Public Properties
 
     /// The number of pulse.
-    public var numPulse: Int = 1 {
+    @objc public var numPulse: Int = 1 {
         didSet {
             if numPulse < 1 {
                 numPulse = 1
@@ -53,14 +53,14 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     }
     
     ///	The radius of pulse.
-    public var radius: CGFloat = 60 {
+    @objc public var radius: CGFloat = 60 {
         didSet {
             updatePulse()
         }
     }
     
     /// The animation duration in seconds.
-    public var animationDuration: TimeInterval = 3 {
+    @objc public var animationDuration: TimeInterval = 3 {
         didSet {
             updateInstanceDelay()
         }
@@ -68,11 +68,11 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     
     /// If this property is `true`, the instanse will be automatically removed
     /// from the superview, when it finishes the animation.
-     public var autoRemove = false
+     @objc public var autoRemove = false
     
     /// fromValue for radius
     /// It must be smaller than 1.0
-     public var fromValueForRadius: Float = 0.0 {
+     @objc public var fromValueForRadius: Float = 0.0 {
         didSet {
             if fromValueForRadius >= 1.0 {
                 fromValueForRadius = 0.0
@@ -82,17 +82,17 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     }
     
     /// The value of this property should be ranging from @c 0 to @c 1 (exclusive).
-     public var keyTimeForHalfOpacity: Float = 0.2 {
+     @objc public var keyTimeForHalfOpacity: Float = 0.2 {
         didSet {
             recreate()
         }
     }
     
     /// The animation interval in seconds.
-     public var pulseInterval: TimeInterval = 0
+     @objc public var pulseInterval: TimeInterval = 0
     
     /// A function describing a timing curve of the animation.
-     public var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault) {
+     @objc public var timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault) {
         didSet {
             if let animationGroup = animationGroup {
                 animationGroup.timingFunction = timingFunction
@@ -101,7 +101,7 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     }
     
     /// The value of this property showed a pulse is started
-    public var isPulsating: Bool {
+    @objc public var isPulsating: Bool {
         guard let keys = pulse.animationKeys() else {return false}
         return keys.count > 0
     }
@@ -222,14 +222,14 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     // MARK: - Public Methods
     
     /// Start the animation.
-    public func start() {
+    @objc public func start() {
         setupPulse()
         setupAnimationGroup()
         pulse.add(animationGroup, forKey: kPulsatorAnimationKey)
     }
     
     /// Stop the animation.
-    public func stop() {
+    @objc public func stop() {
         pulse.removeAllAnimations()
         animationGroup = nil
     }
@@ -237,7 +237,7 @@ open class Pulsator: CAReplicatorLayer, CAAnimationDelegate {
     
     // MARK: - Delegate methods for CAAnimation
     
-    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if let keys = pulse.animationKeys(), keys.count > 0 {
             pulse.removeAllAnimations()
         }
